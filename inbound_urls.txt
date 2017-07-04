@@ -1,5 +1,4 @@
 http://www.projecthoneypot.org/list_of_ips.php?rss=1
-http://www.openbl.org/lists/base_30days.txt
 http://www.blocklist.de/lists/ssh.txt
 http://www.blocklist.de/lists/apache.txt
 http://www.blocklist.de/lists/asterisk.txt
@@ -24,5 +23,4 @@ http://www.nothink.org/blacklist/blacklist_ssh_day.txt
 https://www.packetmail.net/iprep.txt
 http://www.autoshun.org/files/shunlist.csv
 http://charles.the-haleys.org/ssh_dico_attack_hdeny_format.php/hostsdeny.txt
-http://virbl.org/download/virbl.dnsbl.bit.nl.txt
 http://botscout.com/last_caught_cache.htm
