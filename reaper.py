@@ -24,14 +24,28 @@ def reap(file_name):
 
     try:
         with open(inbound_url_file, 'rb') as f:
-    	    inbound_urls = [url.rstrip('\n') for url in f.readlines()]
+    	    #inbound_urls = [url.rstrip('\n') for url in f.readlines()]
+	    inbound_lines = [line.split(",") for line in f.readlines()]
+	    inbound_urls=[]
+	    inbound_tags=[]
+	    for i in range(len(inbound_lines)):
+		inbound_urls.append(inbound_lines[i][0])
+		inbound_tags.append(inbound_lines[i][1].strip('\n'))
+
     except EnvironmentError as e:
         logger.error('Reaper: Error while opening "%s" - %s' % (inbound_url_file, e.strerror))
         return
 
     try:
         with open(outbound_url_file, 'rb') as f:
-            outbound_urls = [url.rstrip('\n') for url in f.readlines()]
+            #outbound_urls = [url.rstrip('\n') for url in f.readlines()]
+            outbound_lines = [line.split(",") for line in f.readlines()]
+            outbound_urls=[]
+            outbound_tags=[]
+            for i in range(len(outbound_lines)):
+                outbound_urls.append(inbound_lines[i][0])
+                outbound_tags.append(inbound_lines[i][1].strip('\n'))
+
     except EnvironmentError as e:
         logger.error('Reaper: Error while opening "%s" - %s' % (outbound_url_file, e.strerror))
         return
@@ -47,7 +61,13 @@ def reap(file_name):
             inbound_urls.remove(url)
     reqs = [grequests.get(url, headers=headers) for url in inbound_urls]
     inbound_responses = grequests.map(reqs, exception_handler=exception_handler)
-    inbound_harvest = [(response.url, response.status_code, response.text) for response in inbound_responses if response]
+    #inbound_harvest = [(response.url, response.status_code, response.text) for response in inbound_responses if response]
+    inbound_harvest=[]
+    for response in inbound_responses:
+	if response.status_code == 200:
+		url_index=inbound_urls.index(response.url.strip())
+		tmp=response.url, response.status_code, inbound_tags[url_index], response.text
+		inbound_harvest.append(tmp)
     for each in inbound_files:
         try:
             with open(each,'rb') as f:
@@ -64,7 +84,13 @@ def reap(file_name):
             outbound_urls.remove(url)
     reqs = [grequests.get(url, headers=headers) for url in outbound_urls]
     outbound_responses = grequests.map(reqs, exception_handler=exception_handler)
-    outbound_harvest = [(response.url, response.status_code, response.text) for response in outbound_responses if response]
+    #outbound_harvest = [(response.url, response.status_code, response.text) for response in outbound_responses if response]
+    outbound_harvest = []
+    for response in outbound_responses:
+        if response.status_code == 200:
+                url_index=outbound_urls.index(response.url.strip())
+		tmp=response.url, response.status_code, inbound_tags[url_index], response.text
+                outbound_harvest.append(tmp)
     for each in outbound_files:
         try:
             with open(each,'rb') as f:

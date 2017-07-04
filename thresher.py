@@ -162,7 +162,7 @@ def thresh(input_file, output_file):
     logger.info('Loading raw feed data from %s', input_file)
     with open(input_file, 'rb') as f:
         crop = json.load(f)
-
+	print crop
     harvest = []
     # TODO: replace with a proper plugin system (cf. #23)
     thresher_map = {'blocklist.de': process_simple_list,
