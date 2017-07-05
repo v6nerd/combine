@@ -1,25 +1,25 @@
 http://www.projecthoneypot.org/list_of_ips.php?rss=1,None
-http://www.blocklist.de/lists/ssh.txt,None
-http://www.blocklist.de/lists/apache.txt,None
-http://www.blocklist.de/lists/asterisk.txt,None
-http://www.blocklist.de/lists/bots.txt,None
-http://www.blocklist.de/lists/courierimap.txt,None
-http://www.blocklist.de/lists/courierpop3.txt,None
+http://www.blocklist.de/lists/ssh.txt,SSH attack source
+http://www.blocklist.de/lists/apache.txt,Apache attack source
+http://www.blocklist.de/lists/asterisk.txt,Asterisk attack source
+http://www.blocklist.de/lists/bots.txt,Infected BotMachine
+http://www.blocklist.de/lists/courierimap.txt,CourierIMAP attack source
+http://www.blocklist.de/lists/courierpop3.txt,POP3 attack source
 http://www.blocklist.de/lists/email.txt,None
-http://www.blocklist.de/lists/ftp.txt,None
-http://www.blocklist.de/lists/imap.txt,None
-http://www.blocklist.de/lists/ircbot.txt,None
-http://www.blocklist.de/lists/pop3.txt,None
-http://www.blocklist.de/lists/postfix.txt,None
-http://www.blocklist.de/lists/proftpd.txt,None
-http://www.blocklist.de/lists/sip.txt,None
-http://cinsscore.com/list/ci-badguys.txt,None
+http://www.blocklist.de/lists/ftp.txt,FTP attack source
+http://www.blocklist.de/lists/imap.txt,IMAP attack source
+http://www.blocklist.de/lists/ircbot.txt,Infected IRC BotMachine
+http://www.blocklist.de/lists/pop3.txt,POP3 attack source
+http://www.blocklist.de/lists/postfix.txt,POSTFIX attack source
+http://www.blocklist.de/lists/proftpd.txt,PROFTPd attack source
+http://www.blocklist.de/lists/sip.txt,SIP attack source
+http://cinsscore.com/list/ci-badguys.txt,RougePacket
 http://reputation.alienvault.com/reputation.data,None
-http://dragonresearchgroup.org/insight/sshpwauth.txt,None
-http://dragonresearchgroup.org/insight/vncprobe.txt,None
-http://danger.rulez.sk/projects/bruteforceblocker/blist.php,None
+http://dragonresearchgroup.org/insight/sshpwauth.txt,SSH Malicious login attempt sources
+http://dragonresearchgroup.org/insight/vncprobe.txt,VNC probe source
+http://danger.rulez.sk/projects/bruteforceblocker/blist.php,SSH bruteforce source
 https://isc.sans.edu/ipsascii.html,None
-http://www.nothink.org/blacklist/blacklist_ssh_day.txt,None
-http://cybersweat.shop/iprep/iprep.txt,None
-http://charles.the-haleys.org/ssh_dico_attack_hdeny_format.php/hostsdeny.txt,None
-http://botscout.com/last_caught_cache.htm,None
+http://www.nothink.org/blacklist/blacklist_ssh_day.txt,SSH attack source
+http://cybersweat.shop/iprep/iprep.txt,TCP SYN'ers 
+http://charles.the-haleys.org/ssh_dico_attack_hdeny_format.php/hostsdeny.txt,SSH bruteforce source
+http://botscout.com/last_caught_cache.htm,BOT source

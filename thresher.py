@@ -23,57 +23,57 @@ def indicator_type(indicator):
         return None
 
 
-def process_simple_list(response, source, direction):
+def process_simple_list(response, source, direction, tag):
     data = []
     current_date = str(datetime.date.today())
     for line in response.splitlines():
         if not line.startswith('#') and not line.startswith('/') and not line.startswith('Export date') and len(line) > 0:
             i = line.split()[0]
-            data.append((i, indicator_type(i), direction, source, '', current_date))
+            data.append((i, indicator_type(i), direction, source, tag, current_date))
     return data
 
 
-def process_sans(response, source, direction):
+def process_sans(response, source, direction, tag):
     data = []
     for line in response.splitlines():
         if not line.startswith('#') and len(line) > 0:
             # Because SANS zero-pads their addresses
             i = re.sub(r'\.0{1,2}', '.', line.split()[0].lstrip('0'))
             date = line.split()[-1]
-            data.append((i, indicator_type(i), direction, source, '', date))
+            data.append((i, indicator_type(i), direction, source, tag, date))
     return data
 
 
-def process_virbl(response, source, direction):
+def process_virbl(response, source, direction, tag):
     data = []
     current_date = str(datetime.date.today())
     for line in response.splitlines():
         if not line.startswith('E') and len(line) > 0:
             i = line.split()[0]
-            data.append((i, indicator_type(i), direction, source, '', current_date))
+            data.append((i, indicator_type(i), direction, source, tag, current_date))
     return data
 
 
-def process_project_honeypot(response, source, direction):
+def process_project_honeypot(response, source, direction, tag):
     data = []
     for entry in feedparser.parse(response).entries:
         i = entry.title.partition(' ')[0]
         i_date = entry.description.split(' ')[-1]
-        data.append((i, indicator_type(i), direction, source, '', i_date))
+        data.append((i, indicator_type(i), direction, source, tag, i_date))
     return data
 
 
-def process_drg(response, source, direction):
+def process_drg(response, source, direction, tag):
     data = []
     current_date = str(datetime.date.today())
     for line in response.splitlines():
         if not line.startswith('#') and len(line) > 0:
             i = line.split('|')[2].strip()
-            data.append((i, indicator_type(i), direction, source, '', current_date))
+            data.append((i, indicator_type(i), direction, source, tag, current_date))
     return data
 
 
-def process_alienvault(response, source, direction):
+def process_alienvault(response, source, direction, tag):
     data = []
     current_date = str(datetime.date.today())
     for line in response.splitlines():
@@ -88,17 +88,17 @@ def process_alienvault(response, source, direction):
     return data
 
 
-def process_rulez(response, source, direction):
+def process_rulez(response, source, direction, tag):
     data = []
     for line in response.splitlines():
         if not line.startswith('#') and len(line) > 0:
             i = line.partition('#')[0].strip()
             date = line.partition('#')[2].split(' ')[1]
-            data.append((i, indicator_type(i), direction, source, '', date))
+            data.append((i, indicator_type(i), direction, source, tag, date))
     return data
 
 
-def process_packetmail(response, source, direction):
+def process_packetmail(response, source, direction, tag):
     data = []
     filter_comments = lambda x: not x[0].startswith('#')
     try:
@@ -106,13 +106,13 @@ def process_packetmail(response, source, direction):
                             reader(response.splitlines(), delimiter=';')):
             i = line[0]
             date = line[1].split(' ')[1]
-            data.append((i, indicator_type(i), direction, source, '', date))
+            data.append((i, indicator_type(i), direction, source, tag, date))
     except (IndexError, AttributeError):
         pass
     return data
 
 
-def process_autoshun(response, source, direction):
+def process_autoshun(response, source, direction, tag):
     data = []
     if response.startswith("Couldn't select database"):
         return data
@@ -129,24 +129,24 @@ def process_autoshun(response, source, direction):
     return data
 
 
-def process_haleys(response, source, direction):
+def process_haleys(response, source, direction, tag):
     data = []
     current_date = str(datetime.date.today())
     for line in response.splitlines():
         if not line.startswith('#') and len(line) > 0:
             i = line.partition(':')[2].strip()
-            data.append((i, indicator_type(i), direction, source, '', current_date))
+            data.append((i, indicator_type(i), direction, source, tag, current_date))
     return data
 
 
-def process_malwaregroup(response, source, direction):
+def process_malwaregroup(response, source, direction, tag):
     data = []
     soup = bs4.BeautifulSoup(response)
     for row in soup.find_all('tr'):
         if row.td:
             i = row.td.text
             date = row.contents[-1].text
-            data.append((i, indicator_type(i), direction, source, '', date))
+            data.append((i, indicator_type(i), direction, source, tag, date))
     return data
 
 
@@ -162,7 +162,6 @@ def thresh(input_file, output_file):
     logger.info('Loading raw feed data from %s', input_file)
     with open(input_file, 'rb') as f:
         crop = json.load(f)
-	print crop
     harvest = []
     # TODO: replace with a proper plugin system (cf. #23)
     thresher_map = {'blocklist.de': process_simple_list,
@@ -192,7 +191,7 @@ def thresh(input_file, output_file):
             for site in thresher_map:
                 if site in response[0]:
                     logger.info('Parsing feed from %s', response[0])
-                    harvest += thresher_map[site](response[2], response[0], 'inbound')
+                    harvest += thresher_map[site](response[3], response[0], 'inbound', response[2])
                 else:  # how to handle non-mapped sites?
                     pass
         else:  # how to handle non-200 non-404?
@@ -203,7 +202,7 @@ def thresh(input_file, output_file):
             for site in thresher_map:
                 if site in response[0]:
                     logger.info('Parsing feed from %s', response[0])
-                    harvest += thresher_map[site](response[2], response[0], 'outbound')
+                    harvest += thresher_map[site](response[2], response[0], 'outbound', response[2])
                 else:  # how to handle non-mapped sites?
                     pass
         else:  # how to handle non-200 non-404?
