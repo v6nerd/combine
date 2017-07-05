@@ -202,7 +202,7 @@ def thresh(input_file, output_file):
             for site in thresher_map:
                 if site in response[0]:
                     logger.info('Parsing feed from %s', response[0])
-                    harvest += thresher_map[site](response[2], response[0], 'outbound', response[2])
+                    harvest += thresher_map[site](response[3], response[0], 'outbound', response[2])
                 else:  # how to handle non-mapped sites?
                     pass
         else:  # how to handle non-200 non-404?
