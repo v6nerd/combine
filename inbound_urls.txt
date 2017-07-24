@@ -1,4 +1,4 @@
-http://www.projecthoneypot.org/list_of_ips.php?rss=1,None
+http://www.projecthoneypot.org/list_of_ips.php?rss=1,Malicious IP
 http://www.blocklist.de/lists/ssh.txt,SSH attack source
 http://www.blocklist.de/lists/apache.txt,Apache attack source
 http://www.blocklist.de/lists/asterisk.txt,Asterisk attack source
@@ -13,9 +13,9 @@ http://www.blocklist.de/lists/pop3.txt,POP3 attack source
 http://www.blocklist.de/lists/postfix.txt,POSTFIX attack source
 http://www.blocklist.de/lists/proftpd.txt,PROFTPd attack source
 http://www.blocklist.de/lists/sip.txt,SIP attack source
-http://cinsscore.com/list/ci-badguys.txt,RougePacket
+http://cinsscore.com/list/ci-badguys.txt,RougePacket source
 http://reputation.alienvault.com/reputation.data,None
-http://dragonresearchgroup.org/insight/sshpwauth.txt,SSH Malicious login attempt sources
+http://dragonresearchgroup.org/insight/sshpwauth.txt,SSH Malicious login attempt source
 http://dragonresearchgroup.org/insight/vncprobe.txt,VNC probe source
 http://danger.rulez.sk/projects/bruteforceblocker/blist.php,SSH bruteforce source
 https://isc.sans.edu/ipsascii.html,None

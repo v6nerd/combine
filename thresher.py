@@ -181,6 +181,7 @@ def thresh(input_file, output_file):
                     'dragonresearchgroup': process_drg,
                     'malwaregroup': process_malwaregroup,
                     'malc0de': process_simple_list,
+		    'networksec' : process_simple_list,
                     'file://': process_simple_list}
 
     # When we have plugins, this hack won't be necessary
@@ -189,6 +190,7 @@ def thresh(input_file, output_file):
         # TODO: logging
         if response[1] == 200:
             for site in thresher_map:
+		print site
                 if site in response[0]:
                     logger.info('Parsing feed from %s', response[0])
                     harvest += thresher_map[site](response[3], response[0], 'inbound', response[2])
@@ -196,11 +198,12 @@ def thresh(input_file, output_file):
                     pass
         else:  # how to handle non-200 non-404?
             logger.error('Could not handle %s: %s', response[0], response[1])
-
     for response in crop['outbound']:
         if response[1] == 200:
             for site in thresher_map:
                 if site in response[0]:
+		    if site == "file://":
+			print response[2]
                     logger.info('Parsing feed from %s', response[0])
                     harvest += thresher_map[site](response[3], response[0], 'outbound', response[2])
                 else:  # how to handle non-mapped sites?
@@ -211,7 +214,6 @@ def thresh(input_file, output_file):
     logger.info('Storing parsed data in %s', output_file)
     with open(output_file, 'wb') as f:
         json.dump(harvest, f, indent=2)
-
 
 if __name__ == "__main__":
     thresh('harvest.json', 'crop.json')

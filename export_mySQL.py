@@ -10,9 +10,8 @@ cursor = mydb.cursor()
 
 csv_data = csv.reader(file('harvest.csv'))
 for row in csv_data:
-	cursor.execute("INSERT INTO ip_reputation(host, type, direction, source_url, tags, date) VALUES(%s, %s, %s, %s, %s, %s)",row)
+	cursor.execute("INSERT IGNORE INTO ip_reputation(host, type, direction, source_url, tag, date) VALUES(%s, %s, %s, %s, %s, %s)",row)
 #close the connection to the database.
 mydb.commit()
 cursor.close()
-print "Done" 
-
+print "Done"
