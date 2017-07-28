@@ -1,7 +1,14 @@
 http://malc0de.com/bl/IP_Blacklist.txt,malc0de_malicious_ip
-https://zeustracker.abuse.ch/blocklist.php?download=ipblocklist,ZeuS_blacklisted_ip
-http://reputation.alienvault.com/reputation.data,None
+https://zeustracker.abuse.ch/blocklist.php?download=ipblocklist,zeus_blacklisted_ip
+http://reputation.alienvault.com/reputation.data,malicious_nodesc
 http://www.nothink.org/blacklist/blacklist_malware_dns.txt,malware_dns_list
 http://www.nothink.org/blacklist/blacklist_malware_http.txt,None
 http://www.nothink.org/blacklist/blacklist_malware_irc.txt,None
 https://feodotracker.abuse.ch/blocklist/?download=ipblocklist,fedeo_banking_trojan_CnC
+http://www.networksec.org/grabbho/block.txt,blacklisted_domain
+http://ransomwaretracker.abuse.ch/downloads/RW_DOMBL.txt,ransomware_domain
+https://zeustracker.abuse.ch/blocklist.php?download=domainblocklist,zeus_domain
+http://pgl.yoyo.org/adservers/serverlist.php?hostformat=nohtml,ad_servers
+https://openphish.com/feed.txt,zeroday_phishing_site
+http://osint.bambenekconsulting.com/feeds/dga-feed.txt,dga_domain
+file://cybercrime_tracker.txt, cybercrime_reported_source

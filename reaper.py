@@ -89,7 +89,7 @@ def reap(file_name):
                 inbound_harvest.append(('file://'+inbound_files[i], 200, inbound_ftags[i], f.read()))
         except IOError as e:
             assert isinstance(logger, logging.Logger)
-            logger.error('Reaper: Error while opening "%s" - %s' % (each, e.strerror))
+            logger.error('Reaper: Error while opening "%s" - %s' % (inbound_files[i], e.strerror))
 
     #logger.info('Fetching outbound URLs')
     #outbound_files=[]
@@ -112,7 +112,7 @@ def reap(file_name):
                 outbound_harvest.append(('file://'+outbound_files[i], 200, outbound_ftags[i], f.read()))
         except IOError as e:
             assert isinstance(logger, logging.Logger)
-            logger.error('Reaper: Error while opening "%s" - %s' % (ountbound_files[i], e.strerror))
+            logger.error('Reaper: Error while opening "%s" - %s' % (outbound_files[i], e.strerror))
 
     logger.info('Storing raw feeds in %s' % file_name)
     harvest = {'inbound': inbound_harvest, 'outbound': outbound_harvest}
