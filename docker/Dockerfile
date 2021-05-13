@@ -2,7 +2,7 @@
 # written by Kyle Maxwell
 
 #MAINTAINER Kyle Maxwell, krmaxwell@gmail.com
-FROM ubuntu:14.04
+FROM ubuntu:trusty-20190425
 RUN apt-get update && \
   apt-get dist-upgrade -y
 RUN apt-get install -y --no-install-recommends \
