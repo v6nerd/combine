@@ -2,7 +2,7 @@
 # written by Kyle Maxwell
 
 #MAINTAINER Kyle Maxwell, krmaxwell@gmail.com
-FROM ubuntu:impish-20210928
+FROM ubuntu:impish
 RUN apt-get update && \
   apt-get dist-upgrade -y
 RUN apt-get install -y --no-install-recommends \
